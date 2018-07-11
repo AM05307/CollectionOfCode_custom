@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Watermark</title>
+	<style>
+		.box {
+			margin: 10px;
+			text-align: center;
+			border: 1px solid #555555;
+		}
+		.eventno {
+		    font-size: 100px;
+		    color: #008896;
+		    font-weight: 900;
+		    letter-spacing:0.1em;
+		    /*opacity값으로 글자의 투명도를 조절할 수 있음*/
+		    opacity:0.2;
+		    margin-bottom: 0;
+		    line-height: 0.8em;
+		}
+		.eventtitle {
+		    font-weight: bold;
+		    font-size: 40px;
+		    letter-spacing: -0.1em;
+		    color: #444;
+		    /*margin-top을 -값으로 줘서 겹치는 정도를 조절할 수 있음*/
+		    margin-top: -30px; 
+		    /* z-index 가장 맨위에 나오는 순서를 정할 수 있음*/
+		    z-index: 1;
+		}
+		.eventcontent {
+		    font-size: 18px;
+		    color: #777;    
+		    font-weight: 400;
+		    letter-spacing: -0.1em;
+		    padding-bottom: 50px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="box">
+		<p class="eventno">
+			<em>01</em>
+		</p>
+		
+		<p class="eventtitle">
+			<strong>1개월 / 제목</strong>
+		</p>
+	
+		<p class="eventcontent">
+			내용 <br>
+			내용 <br>
+			내용 <br>
+		</p>
+	</div>
+
+	<div class="box">
+		<p class="eventno">
+			<em>02</em>
+		</p>
+		
+		<p class="eventtitle">
+			<strong>2개월 / 제목</strong>
+		</p>
+	
+		<p class="eventcontent">
+			내용 <br>
+			내용 <br>
+			내용 <br>
+		</p>
+	</div>
+
+		<div class="box">
+		<p class="eventno">
+			<em>03</em>
+		</p>
+		
+		<p class="eventtitle">
+			<strong>3개월 / 제목</strong>
+		</p>
+	
+		<p class="eventcontent">
+			내용 <br>
+			내용 <br>
+			내용 <br>
+		</p>
+	</div>
+</body>
+</html>
