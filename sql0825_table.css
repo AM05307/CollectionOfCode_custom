@@ -1,0 +1,96 @@
+/*커리큘럼 표*/
+tr {
+    display: block;
+    border: 1px solid;
+}
+
+td {
+  border: 1px solid;
+}
+.head {
+    font-weight: bold;
+}
+
+
+body {
+  background-color: #555555;
+}
+
+#cu3_sql0825 table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}  
+
+/*커리큘럼 표 Part 칸*/
+  #cu3_sql0825 .part_sql0825 {
+    border-top: 5px solid #ffffff;
+    border-bottom: 5px solid #ffffff;
+    border-left: none;
+    border-right: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #ffffff;
+    text-align: center;
+    font-weight: 700;
+    color: #444444;
+    font-size: 24px; 
+    line-height: 30px;  
+  }
+
+/*커리큘럼 표 Chapter 칸*/
+    #cu3_sql0825 .chapter_sql0825 {
+        border-top: 5px solid #ffffff;
+        border-bottom: 5px solid #ffffff;
+        border-left: none;
+        border-right: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 30px;
+        font-size: 20px;
+        line-height: 30px;
+        font-weight: 600;
+        color: #ffffff;
+        text-align: left;
+      }
+
+/*커리큘럼 표 주제, 상세 제목칸*/
+    #cu3_sql0825 .subTd_sql0825 {
+        width: 20%;
+        border-top: 1px solid #ffffff;
+        border-bottom: 1px solid #ffffff;
+        border-right: 1px solid #ffffff;
+        border-left: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 20px;
+        line-height: 30px;
+        text-align: center;
+    }
+
+/*커리큘럼 표 주제, 상세 텍스트 p tag*/
+    #cu3_sql0825 .subP_sql0825 {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 30px;
+      color: #ffffff;
+    }
+
+/*커리큘럼 표 주제, 상세 내용칸*/
+    #cu3_sql0825 .textTd_sql0825 {
+      border-top: 1px solid #ffffff;
+      border-bottom: 1px solid #ffffff;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      font-size: 20px;
+      line-height: 30px;
+      color: #ffffff; 
+    }
+
+/*커리큘럼 표 주제, 상세 내용 p tag*/
+  #cu3_sql0825 .pointText {
+    margin-left: 30px;
+  }
+ 
+/*커리큘럼 표 끝 */
