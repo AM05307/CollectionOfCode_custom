@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>테이블 토글 - 테이블 접었다 펴기</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" href="js/TableToggle.js">
+	<link rel="stylesheet" type="text/css" href="css/TableToggle.css">
+</head>
+<body>
+
+	<script>
+		$(function() {
+    	$(".details").hide();
+    	$('.show-details').click(function(e) {
+		    $(this).nextUntil(".show-details").slideToggle(400);
+    	});
+		});
+	</script>
+<!-- .details : 숨어있다가 나오는 칸 -->
+<!-- .show-details : 처음부터 보이는 칸 -->
+
+	<table border="0">
+		<tr >
+		  <th class="show-details">th Header</td>
+		</tr>
+  
+      <tr class="show-details">
+    		<td>Chapter 1</td>
+  		</tr>
+
+ 		 <tr class="details">
+  	    <td>data1 of Chapter 1</td>
+  		  <td>data2 of Chapter 2</td>
+  		</tr>
+    
+    	<tr class="show-details">
+    		<td>Chapter 2</td>
+  		</tr>
+  
+  		<tr class="details">
+        <td>data1 of Chapter 2</td>
+        <td>data2 of Chapter 2</td>
+        <td>data3 of Chapter 2</td>
+        <td>data4 of Chapter 2</td>
+        <td>data5 of Chapter 2</td>
+        <td>data6 of Chapter 2</td>
+      </tr>
+  
+      <tr class="show-details">
+        <td>Chapter 3</td>
+      </tr>
+      <tr class="details">
+        <td>data1 of Chapter 3</td>
+        <td>data2 of Chapter 3</td>
+      </tr>
+      <tr class="details">
+        <td>data3 of Chapter 3</td>
+        <td>data4 of Chapter 3</td>
+      </tr>
+  
+</table>
+
+</body>
+</html>

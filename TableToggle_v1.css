@@ -1,0 +1,21 @@
+table {
+	width: 100%;
+}
+
+tr {
+    display: block;
+    border: 1px solid;
+}
+
+td {
+	border: 1px solid;
+}
+.head {
+    font-weight: bold;
+}
+.head .cell, .row .cell {
+    width: 50px;
+}
+.details .cell {
+    width: 75px;
+}
