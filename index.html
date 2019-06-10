@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	<!-- 1개의 html 파일로 다 합침 -->
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>playdata</title>
+	<meta name="description" content="playdata 온라인 사전교육" />
+	<meta name="keywords" content="playdata" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<!-- main css -->
+	<style>
+		/* Resets */
+		*,
+		*:after,
+		*:before {
+			box-sizing: border-box;
+		}
+
+		/* Helper classes */
+		.cf:before,
+		.cf:after {
+			content: ' ';
+			display: table;
+		}
+
+		.cf:after {
+			clear: both;
+		}
+
+		/* Main styles */
+
+		body {
+			font-family: 'Roboto', sans-serif;
+			overflow: hidden;
+			margin: 0;
+			color: #cecece;
+			background: #2a2b30;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		a {
+			text-decoration: none;
+			color: #fff;
+			outline: none;
+		}
+
+		a:hover {
+			color: #ddd;
+		}
+
+		.container {
+			overflow-y: auto;
+			height: 100vh;
+		}
+
+		/* Blueprint header */
+
+.bp-header {
+	display: -webkit-flex;
+	display: flex;
+}
+
+.bp-header__main {
+	margin: 0 0 0 auto;
+	padding: 2em 3em 0;
+	text-align: right;
+}
+
+.bp-header__title {
+	font-size: 1.3em;
+	font-weight: 400;
+	line-height: 1.3;
+	margin: 0.25em 0 0;
+}
+
+.bp-header__present {
+	font-size: 0.75em;
+	font-weight: 700;
+	position: relative;
+	z-index: 100;
+	display: block;
+	margin: 0 -8px 0 0;
+	padding: 0 0 0.6em 0;
+	text-indent: 3px;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	color: #008E9C;
+}
+
+.bp-tooltip:after {
+	position: relative;
+	top: -8px;
+	left: -8px;
+	display: inline-block;
+	width: 0;
+	height: 0;
+}
+
+.bp-tooltip:hover:before {
+	content: attr(data-content);
+	font-size: 110%;
+	font-weight: 700;
+	line-height: 1.2;
+	position: absolute;
+	top: 1.5em;
+	right: 0;
+	width: 50vw;
+	padding: 0.8em 1em;
+	text-align: right;
+	text-indent: 0;
+	letter-spacing: 0;
+	text-transform: none;
+	color: #fff;
+	background: #008E9C;
+}
+
+.bp-nav {
+	margin: 0.5em 0 0 auto;
+	text-align: right;
+}
+
+.bp-nav__item {
+	position: relative;
+	display: inline-block;
+	width: 2.5em;
+	height: 2.5em;
+	margin: 0 0.1em;
+	text-align: left;
+	border-radius: 50%;
+}
+
+.bp-nav__item > span {
+	display: none;
+}
+
+.bp-nav__item:hover:before {
+	content: attr(data-info);
+	font-size: 0.85em;
+	font-weight: bold;
+	position: absolute;
+	top: 120%;
+	right: 0;
+	width: 600%;
+	text-align: right;
+	pointer-events: none;
+	color: #595a5f;
+}
+
+.bp-nav__item:hover {
+	background: #008E9C;
+}
+
+.bp-icon:after {
+	font-family: 'Roboto', sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	font-variant: normal;
+	text-align: center;
+	text-transform: none;
+	color: #008E9C;
+	-webkit-font-smoothing: antialiased;
+	speak: none;
+}
+
+.bp-nav .bp-icon:after {
+	line-height: 2.4;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-indent: 0;
+}
+
+.bp-nav a:hover:after {
+	color: #fff;
+}
+
+.bp-icon--next:after {
+	content: '\e000';
+}
+
+.bp-icon--drop:after {
+	content: '\e001';
+}
+
+.bp-icon--archive:after {
+	content: '\e002';
+}
+
+.bp-icon--about:after {
+	content: '\e003';
+}
+
+.bp-icon--prev:after {
+	content: '\e004';
+}
+
+.dummy-logo {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 300px;
+	height: 120px;
+	padding: 1em 0 0 0;
+	text-align: center;
+	color: #3b3d4a;
+	background: #1c1d22;
+}
+
+.dummy-icon {
+	font-size: 4em;
+}
+
+.dummy-heading {
+	font-size: 0.75em;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+.content {
+	position: relative;
+	min-height: 300px;
+	margin: 0 0 0 300px;
+}
+
+.content--loading {
+	background: url(../img/loading.svg) no-repeat 50% 50%;
+}
+
+.products {
+	margin: 0;
+	padding: 2em;
+	text-align: center;
+}
+
+.product {
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	margin: 10px;
+	border-radius: 5px;
+	background: #1c1d22;
+}
+
+.product .foodicon {
+	font-size: 4em;
+	line-height: 190px;
+	color: #3b3d4a;
+}
+
+.info {
+	font-size: 1.1em;
+	font-weight: bold;
+	padding: 20vh 1em 0;
+	text-align: center;
+	color: #47484c;
+}
+
+body #cdawrap {
+	top: auto;
+	bottom: 15px;
+	background: rgba(0, 0, 0, 0.1);
+}
+
+body #cdawrap .carbon-text {
+	color: #505158;
+}
+
+body #cdawrap a.carbon-poweredby {
+	color: #7883c4;
+}
+
+body #cdawrap a:hover.carbon-poweredby {
+	color: #fff;
+}
+
+@media screen and (max-width: 40em) {
+	.bp-header {
+		padding-top: 3em;
+	}
+	.bp-header__main,
+	.bp-nav {
+		width: 100%;
+		text-align: center;
+	}
+	.dummy-logo {
+		display: none;
+	}
+	.content {
+		margin: 0;
+	}
+	body,
+	.container {
+		height: auto;
+		overflow: auto;
+	}
+}
+	</style>
+	<!-- main css 끝 -->
+
+	<!-- 메뉴 css -->
+	<style>
+.icon {
+	font-family: 'Roboto', sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	font-variant: normal;
+	line-height: 1;
+	text-transform: none;
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	speak: none;
+}
+
+.icon--arrow-left:before {
+	content: '\e901';
+}
+
+.icon--menu:before {
+	content: '\e903';
+}
+
+.icon--cross:before {
+	content: '\e117';
+}
+
+
+/* Menu styles */
+.menu {
+	position: fixed;
+	top: 120px;
+	left: 0;
+	width: 300px;
+	height: calc(100vh - 120px);
+	background: #1c1d22;
+}
+
+.menu__wrap {
+	position: absolute;
+	top: 3.5em;
+	bottom: 0;
+	overflow: hidden;
+	width: 100%;
+}
+
+.menu__level {
+	position: absolute;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+	overflow: hidden;
+	overflow-y: scroll;
+	width: calc(100% + 50px);
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.menu__level:focus {
+	outline: none;
+}
+
+.menu__level--current {
+	visibility: visible;
+}
+
+.menu__item {
+	display: block;
+	width: calc(100% - 50px);
+}
+
+.menu__link {
+	font-weight: 600;
+	position: relative;
+	display: block;
+	padding: 1em 2.5em 1em 1.5em;
+	color: #bdbdbd;
+	-webkit-transition: color 0.1s;
+	transition: color 0.1s;
+}
+
+.menu__link[data-submenu]::after {
+	content: '\e904';
+	font-family: 'Roboto', sans-serif;
+	position: absolute;
+	right: 0;
+	padding: 0.25em 1.25em;
+	color: #2a2b30;
+}
+
+.menu__link:hover,
+.menu__link:focus,
+.menu__link[data-submenu]:hover::after,
+.menu__link[data-submenu]:focus::after {
+	color: #008E9C;
+}
+
+.menu__link--current::before {
+	content: '\00B7';
+	font-size: 1.5em;
+	line-height: 0;
+	position: absolute;
+	top: 50%;
+	left: 0.5em;
+	height: 4px;
+	color: #008E9C;
+}
+
+[class^='animate-'],
+[class*=' animate-'] {
+	visibility: visible;
+}
+
+.animate-outToRight .menu__item {
+	-webkit-animation: outToRight 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
+	animation: outToRight 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+@-webkit-keyframes outToRight {
+	to {
+		opacity: 0;
+		-webkit-transform: translate3d(100%, 0, 0);
+		transform: translate3d(100%, 0, 0);
+	}
+}
+
+@keyframes outToRight {
+	to {
+		opacity: 0;
+		-webkit-transform: translate3d(100%, 0, 0);
+		transform: translate3d(100%, 0, 0);
+	}
+}
+
+.animate-outToLeft .menu__item {
+	-webkit-animation: outToLeft 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
+	animation: outToLeft 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+@-webkit-keyframes outToLeft {
+	to {
+		opacity: 0;
+		-webkit-transform: translate3d(-100%, 0, 0);
+		transform: translate3d(-100%, 0, 0);
+	}
+}
+
+@keyframes outToLeft {
+	to {
+		opacity: 0;
+		-webkit-transform: translate3d(-100%, 0, 0);
+		transform: translate3d(-100%, 0, 0);
+	}
+}
+
+.animate-inFromLeft .menu__item {
+	-webkit-animation: inFromLeft 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
+	animation: inFromLeft 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+@-webkit-keyframes inFromLeft {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(-100%, 0, 0);
+		transform: translate3d(-100%, 0, 0);
+	}
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes inFromLeft {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(-100%, 0, 0);
+		transform: translate3d(-100%, 0, 0);
+	}
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+.animate-inFromRight .menu__item {
+	-webkit-animation: inFromRight 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
+	animation: inFromRight 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+@-webkit-keyframes inFromRight {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(100%, 0, 0);
+		transform: translate3d(100%, 0, 0);
+	}
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes inFromRight {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(100%, 0, 0);
+		transform: translate3d(100%, 0, 0);
+	}
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+.menu__breadcrumbs {
+	font-size: 0.65em;
+	line-height: 1;
+	position: relative;
+	padding: 2.5em 3.75em 1.5em 2.5em;
+}
+
+.menu__breadcrumbs a {
+	font-weight: bold;
+	display: inline-block;
+	cursor: pointer;
+	vertical-align: middle;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	color: #008E9C;
+}
+
+.menu__breadcrumbs a:last-child {
+	pointer-events: none;
+}
+
+.menu__breadcrumbs a:hover,
+.menu__breadcrumbs a:focus {
+	color: #008E9C;
+}
+
+.menu__breadcrumbs a:not(:last-child)::after {
+	content: '\e902';
+	font-family: 'Roboto', sans-serif;
+	display: inline-block;
+	padding: 0 0.5em;
+	color: #33353e;
+}
+
+.menu__breadcrumbs a:not(:last-child):hover::after,
+.menu__breadcrumbs a:not(:last-child):focus::after {
+	color: #33353e;
+}
+
+.menu__back {
+	font-size: 1.05em;
+	position: absolute;
+	z-index: 100;
+	top: 0;
+	right: 2.25em;
+	margin: 0;
+	padding: 1.365em 0.65em 0 0;
+	cursor: pointer;
+	color: #2a2b30;
+	border: none;
+	background: none;
+}
+
+.menu__back--hidden {
+	pointer-events: none;
+	opacity: 0;
+}
+
+.menu__back:hover,
+.menu__back:focus {
+	color: #fff;
+	outline: none;
+}
+
+/* Open and close buttons */
+
+.action {
+	position: absolute;
+	display: block;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+	border: none;
+	background: none;
+}
+
+.action:focus {
+	outline: none;
+}
+
+.action--open {
+	font-size: 1.5em;
+	top: 1em;
+	left: 1em;
+	display: none;
+	color: #fff;
+	position: fixed;
+	z-index: 1000;
+}
+
+.action--close {
+	font-size: 1.1em;
+	top: 1.25em;
+	right: 1em;
+	display: none;
+	color: #45464e;
+}
+
+@media screen and (max-width: 40em) {
+	.action--open,
+	.action--close {
+		display: block;
+	}
+	.menu {
+		z-index: 1000;
+		top: 0;
+		width: 100%;
+		height: 100vh;
+		-webkit-transform: translate3d(-100%, 0, 0);
+		transform: translate3d(-100%, 0, 0);
+		-webkit-transition: -webkit-transform 0.3s;
+		transition: transform 0.3s;
+	}
+	.menu--open {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+	</style>
+<!-- 메뉴 css 끝 -->
+
+<!-- modernizr-custom  -->
+<script type="text/javascript">
+	/*! modernizr 3.2.0 (Custom Build) | MIT *
+ * http://modernizr.com/download/?-cssanimations-prefixed !*/
+!function(e,n,t){function r(e,n){return typeof e===n}function o(){var e,n,t,o,i,s,a;for(var f in C)if(C.hasOwnProperty(f)){if(e=[],n=C[f],n.name&&(e.push(n.name.toLowerCase()),n.options&&n.options.aliases&&n.options.aliases.length))for(t=0;t<n.options.aliases.length;t++)e.push(n.options.aliases[t].toLowerCase());for(o=r(n.fn,"function")?n.fn():n.fn,i=0;i<e.length;i++)s=e[i],a=s.split("."),1===a.length?Modernizr[a[0]]=o:(!Modernizr[a[0]]||Modernizr[a[0]]instanceof Boolean||(Modernizr[a[0]]=new Boolean(Modernizr[a[0]])),Modernizr[a[0]][a[1]]=o),g.push((o?"":"no-")+a.join("-"))}}function i(e){var n=w.className,t=Modernizr._config.classPrefix||"";if(x&&(n=n.baseVal),Modernizr._config.enableJSClass){var r=new RegExp("(^|\\s)"+t+"no-js(\\s|$)");n=n.replace(r,"$1"+t+"js$2")}Modernizr._config.enableClasses&&(n+=" "+t+e.join(" "+t),x?w.className.baseVal=n:w.className=n)}function s(e){return e.replace(/([a-z])-([a-z])/g,function(e,n,t){return n+t.toUpperCase()}).replace(/^-/,"")}function a(e,n){return!!~(""+e).indexOf(n)}function f(){return"function"!=typeof n.createElement?n.createElement(arguments[0]):x?n.createElementNS.call(n,"http://www.w3.org/2000/svg",arguments[0]):n.createElement.apply(n,arguments)}function l(e,n){return function(){return e.apply(n,arguments)}}function u(e,n,t){var o;for(var i in e)if(e[i]in n)return t===!1?e[i]:(o=n[e[i]],r(o,"function")?l(o,t||n):o);return!1}function p(e){return e.replace(/([A-Z])/g,function(e,n){return"-"+n.toLowerCase()}).replace(/^ms-/,"-ms-")}function d(){var e=n.body;return e||(e=f(x?"svg":"body"),e.fake=!0),e}function c(e,t,r,o){var i,s,a,l,u="modernizr",p=f("div"),c=d();if(parseInt(r,10))for(;r--;)a=f("div"),a.id=o?o[r]:u+(r+1),p.appendChild(a);return i=f("style"),i.type="text/css",i.id="s"+u,(c.fake?c:p).appendChild(i),c.appendChild(p),i.styleSheet?i.styleSheet.cssText=e:i.appendChild(n.createTextNode(e)),p.id=u,c.fake&&(c.style.background="",c.style.overflow="hidden",l=w.style.overflow,w.style.overflow="hidden",w.appendChild(c)),s=t(p,e),c.fake?(c.parentNode.removeChild(c),w.style.overflow=l,w.offsetHeight):p.parentNode.removeChild(p),!!s}function m(n,r){var o=n.length;if("CSS"in e&&"supports"in e.CSS){for(;o--;)if(e.CSS.supports(p(n[o]),r))return!0;return!1}if("CSSSupportsRule"in e){for(var i=[];o--;)i.push("("+p(n[o])+":"+r+")");return i=i.join(" or "),c("@supports ("+i+") { #modernizr { position: absolute; } }",function(e){return"absolute"==getComputedStyle(e,null).position})}return t}function v(e,n,o,i){function l(){p&&(delete z.style,delete z.modElem)}if(i=r(i,"undefined")?!1:i,!r(o,"undefined")){var u=m(e,o);if(!r(u,"undefined"))return u}for(var p,d,c,v,h,y=["modernizr","tspan"];!z.style;)p=!0,z.modElem=f(y.shift()),z.style=z.modElem.style;for(c=e.length,d=0;c>d;d++)if(v=e[d],h=z.style[v],a(v,"-")&&(v=s(v)),z.style[v]!==t){if(i||r(o,"undefined"))return l(),"pfx"==n?v:!0;try{z.style[v]=o}catch(g){}if(z.style[v]!=h)return l(),"pfx"==n?v:!0}return l(),!1}function h(e,n,t,o,i){var s=e.charAt(0).toUpperCase()+e.slice(1),a=(e+" "+b.join(s+" ")+s).split(" ");return r(n,"string")||r(n,"undefined")?v(a,n,o,i):(a=(e+" "+N.join(s+" ")+s).split(" "),u(a,n,t))}function y(e,n,r){return h(e,t,t,n,r)}var g=[],C=[],_={_version:"3.2.0",_config:{classPrefix:"",enableClasses:!0,enableJSClass:!0,usePrefixes:!0},_q:[],on:function(e,n){var t=this;setTimeout(function(){n(t[e])},0)},addTest:function(e,n,t){C.push({name:e,fn:n,options:t})},addAsyncTest:function(e){C.push({name:null,fn:e})}},Modernizr=function(){};Modernizr.prototype=_,Modernizr=new Modernizr;var w=n.documentElement,x="svg"===w.nodeName.toLowerCase(),S="Moz O ms Webkit",b=_._config.usePrefixes?S.split(" "):[];_._cssomPrefixes=b;var E=function(n){var r,o=prefixes.length,i=e.CSSRule;if("undefined"==typeof i)return t;if(!n)return!1;if(n=n.replace(/^@/,""),r=n.replace(/-/g,"_").toUpperCase()+"_RULE",r in i)return"@"+n;for(var s=0;o>s;s++){var a=prefixes[s],f=a.toUpperCase()+"_"+r;if(f in i)return"@-"+a.toLowerCase()+"-"+n}return!1};_.atRule=E;var N=_._config.usePrefixes?S.toLowerCase().split(" "):[];_._domPrefixes=N;var P={elem:f("modernizr")};Modernizr._q.push(function(){delete P.elem});var z={style:P.elem.style};Modernizr._q.unshift(function(){delete z.style}),_.testAllProps=h;_.prefixed=function(e,n,t){return 0===e.indexOf("@")?E(e):(-1!=e.indexOf("-")&&(e=s(e)),n?h(e,n,t):h(e,"pfx"))};_.testAllProps=y,Modernizr.addTest("cssanimations",y("animationName","a",!0)),o(),i(g),delete _.addTest,delete _.addAsyncTest;for(var T=0;T<Modernizr._q.length;T++)Modernizr._q[T]();e.Modernizr=Modernizr}(window,document);
+</script>
+<!-- modernizr-custom 끝 -->
+
+</head>
+
+<body>
+	<!-- Main container -->
+	<div class="container">
+		<!-- Blueprint header -->
+		<header class="bp-header cf">
+			<div class="dummy-logo">
+				<h2 class="dummy-heading">playdata</h2>
+			</div>
+			<div class="bp-header__main">
+				<span class="bp-header__present">playdata</span>
+				<h1 class="bp-header__title">온라인 사전교육</h1>
+			</div>
+		</header>
+		<button class="action action--open" aria-label="Open Menu"><span class="icon icon--menu"></span></button>
+		<nav id="ml-menu" class="menu">
+			<button class="action action--close" aria-label="Close Menu"><span class="icon icon--cross"></span></button>
+			<div class="menu__wrap">
+				<ul data-menu="main" class="menu__level" tabindex="-1" role="menu" aria-label="All">
+					<li class="menu__item" role="menuitem"><a class="menu__link" data-submenu="submenu-1" aria-owns="submenu-1" href="#">HTML</a></li>
+					<li class="menu__item" role="menuitem"><a class="menu__link" data-submenu="submenu-2" aria-owns="submenu-2" href="#">Java</a></li>
+				</ul>
+				<!-- HTML Submenu 1 -->
+				<ul data-menu="submenu-1" id="submenu-1" class="menu__level" tabindex="-1" role="menu" aria-label="Vegetables">
+					<li class="menu__item" role="menuitem"><a class="menu__link" href="#">1강</a></li>
+					<li class="menu__item" role="menuitem"><a class="menu__link" href="#">2강</a></li>
+					<li class="menu__item" role="menuitem"><a class="menu__link" href="#">3강</a></li>
+					<li class="menu__item" role="menuitem"><a class="menu__link" data-submenu="submenu-1-1" aria-owns="submenu-1-1" href="#">4강</a></li>
+				</ul>
+				<!-- HTML 4강 Submenu 1 -1 -->
+				<ul data-menu="submenu-1-1" id="submenu-1-1" class="menu__level" tabindex="-1" role="menu" aria-label="Sale %">
+					<li class="menu__item" role="menuitem"><a class="menu__link" href="#">4강1</a></li>
+					<li class="menu__item" role="menuitem"><a class="menu__link" href="#">4강2</a></li>
+				</ul>
+				<!-- Java Submenu 2 -->
+				<ul data-menu="submenu-2" id="submenu-2" class="menu__level" tabindex="-1" role="menu" aria-label="Fruits">
+					<li class="menu__item" role="menuitem"><a class="menu__link" href="#">Java 1강</a></li>
+					<li class="menu__item" role="menuitem"><a class="menu__link" href="#">Java 2강</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div class="content">
+			<p class="info">Playdata 온라인 사전교육</p>
+			<p class="info">원하는 과목을 선택하세요</p>
+			<!-- Ajax loaded content here -->
+		</div>
+	</div>
+	<!-- /view -->
+	
+	
+	<!-- classie -->
+	<script type="text/javascript">
+		/*!
+ * classie v1.0.1
+ * class helper functions
+ * from bonzo https://github.com/ded/bonzo
+ * MIT license
+ * 
+ * classie.has( elem, 'my-class' ) -> true/false
+ * classie.add( elem, 'my-new-class' )
+ * classie.remove( elem, 'my-unwanted-class' )
+ * classie.toggle( elem, 'my-class' )
+ */
+
+/*jshint browser: true, strict: true, undef: true, unused: true */
+/*global define: false, module: false */
+
+( function( window ) {
+
+'use strict';
+
+// class helper functions from bonzo https://github.com/ded/bonzo
+
+function classReg( className ) {
+  return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+}
+
+// classList support for class management
+// altho to be fair, the api sucks because it won't accept multiple classes at once
+var hasClass, addClass, removeClass;
+
+if ( 'classList' in document.documentElement ) {
+  hasClass = function( elem, c ) {
+    return elem.classList.contains( c );
+  };
+  addClass = function( elem, c ) {
+    elem.classList.add( c );
+  };
+  removeClass = function( elem, c ) {
+    elem.classList.remove( c );
+  };
+}
+else {
+  hasClass = function( elem, c ) {
+    return classReg( c ).test( elem.className );
+  };
+  addClass = function( elem, c ) {
+    if ( !hasClass( elem, c ) ) {
+      elem.className = elem.className + ' ' + c;
+    }
+  };
+  removeClass = function( elem, c ) {
+    elem.className = elem.className.replace( classReg( c ), ' ' );
+  };
+}
+
+function toggleClass( elem, c ) {
+  var fn = hasClass( elem, c ) ? removeClass : addClass;
+  fn( elem, c );
+}
+
+var classie = {
+  // full names
+  hasClass: hasClass,
+  addClass: addClass,
+  removeClass: removeClass,
+  toggleClass: toggleClass,
+  // short names
+  has: hasClass,
+  add: addClass,
+  remove: removeClass,
+  toggle: toggleClass
+};
+
+// transport
+if ( typeof define === 'function' && define.amd ) {
+  // AMD
+  define( classie );
+} else if ( typeof exports === 'object' ) {
+  // CommonJS
+  module.exports = classie;
+} else {
+  // browser global
+  window.classie = classie;
+}
+
+})( window );
+	</script>
+	<!-- classie 끝 -->
+
+	<!-- data : 과목명, 동영상 주소 data -->
+	<script type="text/javascript">
+		// 페이지별 본문에 표시되는 데이터 (과목명, 동영상 주소)
+// 과목별 header : 과목명
+var dummyData = {
+	"1강": "<div>playdata 온라인 사전교육 : html</div>",
+	"2강": "<div>playdata 온라인 사전교육 : html</div>",
+	"3강": "<div>playdata 온라인 사전교육 : html</div>",
+	"4강1": "<div>playdata 온라인 사전교육 : html</div>",
+	"Java 1강": "<div>playdata 온라인 사전교육 : Java</div>",
+	"Java 2강": "<div>playdata 온라인 사전교육 : Java</div>"
+}
+
+// 동영상 주소 
+var src = {
+	// html
+	"1강": "https://www.youtube.com/embed/tZooW6PritE",
+	"2강": "https://www.youtube.com/embed/Z7uBInm1PJY",
+	"3강": "https://www.youtube.com/embed/QwCdCcsPVTQ",
+	"4강1": "https://www.youtube.com/embed/MLXlXCwA0T4",
+	"4강2": "https://www.youtube.com/embed/MLXlXCwA0T4",
+
+	//java
+	"Java 1강": "https://www.youtube.com/embed/MLXlXCwA0T4",
+	"Java 2강": "https://www.youtube.com/embed/6eB4a0Nj9wo",
+}
+	</script>
+<!-- data 끝 -->
+
+<!-- main  -->
+	<script type="text/javascript">
+		/**
+ * main.js
+ * http://www.codrops.com
+ *
+ * Licensed under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ * 
+ * Copyright 2015, Codrops
+ * http://www.codrops.com
+ */
+
+;(function(window) {
+
+'use strict';
+
+var support = { animations : Modernizr.cssanimations },
+	animEndEventNames = { 'WebkitAnimation' : 'webkitAnimationEnd', 'OAnimation' : 'oAnimationEnd', 'msAnimation' : 'MSAnimationEnd', 'animation' : 'animationend' },
+	animEndEventName = animEndEventNames[ Modernizr.prefixed( 'animation' ) ],
+	onEndAnimation = function( el, callback ) {
+		var onEndCallbackFn = function( ev ) {
+			if( support.animations ) {
+				if( ev.target != this ) return;
+				this.removeEventListener( animEndEventName, onEndCallbackFn );
+			}
+			if( callback && typeof callback === 'function' ) { callback.call(); }
+		};
+		if( support.animations ) {
+			el.addEventListener( animEndEventName, onEndCallbackFn );
+		}
+		else {
+			onEndCallbackFn();
+		}
+	};
+
+function extend( a, b ) {
+	for( var key in b ) { 
+		if( b.hasOwnProperty( key ) ) {
+			a[key] = b[key];
+		}
+	}
+	return a;
+}
+
+function MLMenu(el, options) {
+	this.el = el;
+	this.options = extend( {}, this.options );
+	extend( this.options, options );
+	
+	// the menus (<ul>´s)
+	this.menus = [].slice.call(this.el.querySelectorAll('.menu__level'));
+
+	// index of current menu
+	// Each level is actually a different menu so 0 is root, 1 is sub-1, 2 sub-2, etc.
+	this.current_menu = 0;
+
+	/* Determine what current menu actually is */
+	var current_menu;
+	this.menus.forEach(function(menuEl, pos) {
+		var items = menuEl.querySelectorAll('.menu__item');
+		items.forEach(function(itemEl, iPos) {
+			var currentLink = itemEl.querySelector('.menu__link--current');
+			if (currentLink) {
+				// This is the actual menu__level that should have current
+				current_menu = pos;
+			}
+		});
+	});
+
+	if (current_menu) {
+		this.current_menu = current_menu;	
+	}
+
+	this._init();
+}
+
+MLMenu.prototype.options = {
+	// show breadcrumbs
+	breadcrumbsCtrl : true,
+	// initial breadcrumb text
+	initialBreadcrumb : 'all',
+	// show back button
+	backCtrl : true,
+	// delay between each menu item sliding animation
+	itemsDelayInterval : 60,
+	// direction 
+	direction : 'r2l',
+	// callback: item that doesn´t have a submenu gets clicked
+	// onItemClick([event], [inner HTML of the clicked item])
+	onItemClick : function(ev, itemName) { return false; }
+};
+
+MLMenu.prototype._init = function() {
+	// iterate the existing menus and create an array of menus, 
+	// more specifically an array of objects where each one holds the info of each menu element and its menu items
+	this.menusArr = [];
+	this.breadCrumbs = false;
+	var self = this;
+	var submenus = [];
+
+	/* Loops over root level menu items */
+	this.menus.forEach(function(menuEl, pos) {
+		var menu = {menuEl : menuEl, menuItems : [].slice.call(menuEl.querySelectorAll('.menu__item'))};
+		
+		self.menusArr.push(menu);
+
+		// set current menu class
+		if( pos === self.current_menu ) {
+			classie.add(menuEl, 'menu__level--current');
+		}
+
+		var menu_x = menuEl.getAttribute('data-menu');
+		var links = menuEl.querySelectorAll('.menu__link');
+		links.forEach(function(linkEl, lPos) {
+			var submenu = linkEl.getAttribute('data-submenu');
+			if (submenu) {
+				var pushMe = {"menu":submenu, "name": linkEl.innerHTML };
+				if (submenus[pos]) {
+					submenus[pos].push(pushMe);
+				} else {
+					submenus[pos] = []
+					submenus[pos].push(pushMe);
+				}
+			}
+		});
+	});
+
+	/* For each MENU, find their parent MENU */		
+	this.menus.forEach(function(menuEl, pos) {
+		var menu_x = menuEl.getAttribute('data-menu');
+		submenus.forEach(function(subMenuEl, menu_root) {
+			subMenuEl.forEach(function(subMenuItem, subPos) {
+				if (subMenuItem.menu == menu_x) {
+					self.menusArr[pos].backIdx = menu_root;
+					self.menusArr[pos].name = subMenuItem.name;
+				}
+			});
+		});
+	});
+
+	// create breadcrumbs
+	if( self.options.breadcrumbsCtrl ) {
+		this.breadcrumbsCtrl = document.createElement('nav');
+		this.breadcrumbsCtrl.className = 'menu__breadcrumbs';
+		this.breadcrumbsCtrl.setAttribute('aria-label', 'You are here');
+		this.el.insertBefore(this.breadcrumbsCtrl, this.el.firstChild);
+		// add initial breadcrumb
+		this._addBreadcrumb(0);
+		
+		// Need to add breadcrumbs for all parents of current submenu
+		if (self.menusArr[self.current_menu].backIdx != 0 && self.current_menu != 0) {
+			this._crawlCrumbs(self.menusArr[self.current_menu].backIdx, self.menusArr);
+			this.breadCrumbs = true;
+		}
+
+		// Create current submenu breadcrumb
+		if (self.current_menu != 0) {
+			this._addBreadcrumb(self.current_menu);
+			this.breadCrumbs = true;
+		}
+	}
+
+	// create back button
+	if (this.options.backCtrl) {
+		this.backCtrl = document.createElement('button');
+		if (this.breadCrumbs) {
+			this.backCtrl.className = 'menu__back';	
+		} else {
+			this.backCtrl.className = 'menu__back menu__back--hidden';
+		}
+		this.backCtrl.setAttribute('aria-label', 'Go back');
+		this.backCtrl.innerHTML = '<span class="icon icon--arrow-left"></span>';
+		this.el.insertBefore(this.backCtrl, this.el.firstChild);
+	}
+
+	// event binding
+	this._initEvents();
+};
+
+MLMenu.prototype._initEvents = function() {
+	var self = this;
+
+	for(var i = 0, len = this.menusArr.length; i < len; ++i) {
+		this.menusArr[i].menuItems.forEach(function(item, pos) {
+			item.querySelector('a').addEventListener('click', function(ev) { 
+				var submenu = ev.target.getAttribute('data-submenu'),
+					itemName = ev.target.innerHTML,
+					subMenuEl = self.el.querySelector('ul[data-menu="' + submenu + '"]');
+
+				// check if there's a sub menu for this item
+				if( submenu && subMenuEl ) {
+					ev.preventDefault();
+					// open it
+					self._openSubMenu(subMenuEl, pos, itemName);
+				}
+				else {
+					// add class current
+					var currentlink = self.el.querySelector('.menu__link--current');
+					if( currentlink ) {
+						classie.remove(self.el.querySelector('.menu__link--current'), 'menu__link--current');
+					}
+					classie.add(ev.target, 'menu__link--current');
+					
+					// callback
+					self.options.onItemClick(ev, itemName);
+				}
+			});
+		});
+	}
+	
+	// back navigation
+	if( this.options.backCtrl ) {
+		this.backCtrl.addEventListener('click', function() {
+			self._back();
+		});
+	}
+};
+
+MLMenu.prototype._openSubMenu = function(subMenuEl, clickPosition, subMenuName) {
+	if( this.isAnimating ) {
+		return false;
+	}
+	this.isAnimating = true;
+	
+	// save "parent" menu index for back navigation
+	this.menusArr[this.menus.indexOf(subMenuEl)].backIdx = this.current_menu;
+	// save "parent" menu´s name
+	this.menusArr[this.menus.indexOf(subMenuEl)].name = subMenuName;
+	// current menu slides out
+	this._menuOut(clickPosition);
+	// next menu (submenu) slides in
+	this._menuIn(subMenuEl, clickPosition);
+};
+
+MLMenu.prototype._back = function() {
+	if( this.isAnimating ) {
+		return false;
+	}
+	this.isAnimating = true;
+
+	// current menu slides out
+	this._menuOut();
+	// next menu (previous menu) slides in
+	var backMenu = this.menusArr[this.menusArr[this.current_menu].backIdx].menuEl;
+	this._menuIn(backMenu);
+
+	// remove last breadcrumb
+	if( this.options.breadcrumbsCtrl ) {
+		this.breadcrumbsCtrl.removeChild(this.breadcrumbsCtrl.lastElementChild);
+	}
+};
+
+MLMenu.prototype._menuOut = function(clickPosition) {
+	// the current menu
+	var self = this,
+		currentMenu = this.menusArr[this.current_menu].menuEl,
+		isBackNavigation = typeof clickPosition == 'undefined' ? true : false;
+
+	// slide out current menu items - first, set the delays for the items
+	this.menusArr[this.current_menu].menuItems.forEach(function(item, pos) {
+		item.style.WebkitAnimationDelay = item.style.animationDelay = isBackNavigation ? parseInt(pos * self.options.itemsDelayInterval) + 'ms' : parseInt(Math.abs(clickPosition - pos) * self.options.itemsDelayInterval) + 'ms';
+	});
+	// animation class
+	if( this.options.direction === 'r2l' ) {
+		classie.add(currentMenu, !isBackNavigation ? 'animate-outToLeft' : 'animate-outToRight');
+	}
+	else {
+		classie.add(currentMenu, isBackNavigation ? 'animate-outToLeft' : 'animate-outToRight');	
+	}
+};
+
+MLMenu.prototype._menuIn = function(nextMenuEl, clickPosition) {
+	var self = this,
+		// the current menu
+		currentMenu = this.menusArr[this.current_menu].menuEl,
+		isBackNavigation = typeof clickPosition == 'undefined' ? true : false,
+		// index of the nextMenuEl
+		nextMenuIdx = this.menus.indexOf(nextMenuEl),
+
+		nextMenu = this.menusArr[nextMenuIdx],
+		nextMenuEl = nextMenu.menuEl,
+		nextMenuItems = nextMenu.menuItems,
+		nextMenuItemsTotal = nextMenuItems.length;
+
+	// slide in next menu items - first, set the delays for the items
+	nextMenuItems.forEach(function(item, pos) {
+		item.style.WebkitAnimationDelay = item.style.animationDelay = isBackNavigation ? parseInt(pos * self.options.itemsDelayInterval) + 'ms' : parseInt(Math.abs(clickPosition - pos) * self.options.itemsDelayInterval) + 'ms';
+
+		// we need to reset the classes once the last item animates in
+		// the "last item" is the farthest from the clicked item
+		// let's calculate the index of the farthest item
+		var farthestIdx = clickPosition <= nextMenuItemsTotal/2 || isBackNavigation ? nextMenuItemsTotal - 1 : 0;
+
+		if( pos === farthestIdx ) {
+			onEndAnimation(item, function() {
+				// reset classes
+				if( self.options.direction === 'r2l' ) {
+					classie.remove(currentMenu, !isBackNavigation ? 'animate-outToLeft' : 'animate-outToRight');
+					classie.remove(nextMenuEl, !isBackNavigation ? 'animate-inFromRight' : 'animate-inFromLeft');
+				}
+				else {
+					classie.remove(currentMenu, isBackNavigation ? 'animate-outToLeft' : 'animate-outToRight');
+					classie.remove(nextMenuEl, isBackNavigation ? 'animate-inFromRight' : 'animate-inFromLeft');
+				}
+				classie.remove(currentMenu, 'menu__level--current');
+				classie.add(nextMenuEl, 'menu__level--current');
+
+				//reset current
+				self.current_menu = nextMenuIdx;
+
+				// control back button and breadcrumbs navigation elements
+				if( !isBackNavigation ) {
+					// show back button
+					if( self.options.backCtrl ) {
+						classie.remove(self.backCtrl, 'menu__back--hidden');
+					}
+					
+					// add breadcrumb
+					self._addBreadcrumb(nextMenuIdx);
+				}
+				else if( self.current_menu === 0 && self.options.backCtrl ) {
+					// hide back button
+					classie.add(self.backCtrl, 'menu__back--hidden');
+				}
+
+				// we can navigate again..
+				self.isAnimating = false;
+
+				// focus retention
+				nextMenuEl.focus();
+			});
+		}
+	});
+
+	// animation class
+	if( this.options.direction === 'r2l' ) {
+		classie.add(nextMenuEl, !isBackNavigation ? 'animate-inFromRight' : 'animate-inFromLeft');
+	}
+	else {
+		classie.add(nextMenuEl, isBackNavigation ? 'animate-inFromRight' : 'animate-inFromLeft');
+	}
+};
+
+MLMenu.prototype._addBreadcrumb = function(idx) {
+	if( !this.options.breadcrumbsCtrl ) {
+		return false;
+	}
+
+	var bc = document.createElement('a');
+	bc.href = '#'; // make it focusable
+	bc.innerHTML = idx ? this.menusArr[idx].name : this.options.initialBreadcrumb;
+	this.breadcrumbsCtrl.appendChild(bc);
+
+	var self = this;
+	bc.addEventListener('click', function(ev) {
+		ev.preventDefault();
+
+		// do nothing if this breadcrumb is the last one in the list of breadcrumbs
+		if( !bc.nextSibling || self.isAnimating ) {
+			return false;
+		}
+		self.isAnimating = true;
+		
+		// current menu slides out
+		self._menuOut();
+		// next menu slides in
+		var nextMenu = self.menusArr[idx].menuEl;
+		self._menuIn(nextMenu);
+
+		// remove breadcrumbs that are ahead
+		var siblingNode;
+		while (siblingNode = bc.nextSibling) {
+			self.breadcrumbsCtrl.removeChild(siblingNode);
+		}
+	});
+};
+
+MLMenu.prototype._crawlCrumbs = function(currentMenu, menuArray) {
+	if (menuArray[currentMenu].backIdx != 0) {
+		this._crawlCrumbs(menuArray[currentMenu].backIdx, menuArray);
+	}
+	// create breadcrumb
+	this._addBreadcrumb(currentMenu);
+}
+
+window.MLMenu = MLMenu;
+
+})(window);
+	</script>
+<!-- main 끝 -->
+
+<!-- index -->
+	<script type="text/javascript">
+	(function() {
+		var menuEl = document.getElementById('ml-menu'),
+			mlmenu = new MLMenu(menuEl, {
+				// breadcrumbsCtrl : true, // show breadcrumbs
+				// initialBreadcrumb : 'all', // initial breadcrumb text
+				backCtrl : false, // show back button
+				// itemsDelayInterval : 60, // delay between each menu item sliding animation
+				onItemClick: loadDummyData // callback: item that doesn´t have a submenu gets clicked - onItemClick([event], [inner HTML of the clicked item])
+			});
+
+		// mobile menu toggle
+		var openMenuCtrl = document.querySelector('.action--open'),
+			closeMenuCtrl = document.querySelector('.action--close');
+
+		openMenuCtrl.addEventListener('click', openMenu);
+		closeMenuCtrl.addEventListener('click', closeMenu);
+
+		function openMenu() {
+			classie.add(menuEl, 'menu--open');
+			closeMenuCtrl.focus();
+		}
+
+		function closeMenu() {
+			classie.remove(menuEl, 'menu--open');
+			openMenuCtrl.focus();
+		}                      
+
+		// simulate grid content loading
+		var gridWrapper = document.querySelector('.content');
+
+		function loadDummyData(ev, itemName) {
+			ev.preventDefault();
+
+			closeMenu();
+			gridWrapper.innerHTML = '';
+			classie.add(gridWrapper, 'content--loading');
+			setTimeout(function() {
+				classie.remove(gridWrapper, 'content--loading');
+				gridWrapper.innerHTML = '<ul class="products">' + dummyData[itemName] + '<ul>' + '<iframe width="100%" height="500" src="' + src[itemName] + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+			}, 700);
+		}
+	})();
+	</script>
+	<!-- index 끝 -->
+</body>
+
+</html>
